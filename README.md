@@ -1,5 +1,6 @@
 # keyframegen-sandbox
 Interactive demo of keyframegen
+<<<<<<< HEAD
 
 ## Available Scripts
 
@@ -27,3 +28,5 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+=======
+>>>>>>> bb94395bbb52deba45b543004d7d7f3b466af143
