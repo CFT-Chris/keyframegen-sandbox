@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/keyframegen-sandbox/static/css/main.5f361e03.chunk.css",
+    "main.js": "/keyframegen-sandbox/static/js/main.f87283a5.chunk.js",
+    "main.js.map": "/keyframegen-sandbox/static/js/main.f87283a5.chunk.js.map",
+    "runtime-main.js": "/keyframegen-sandbox/static/js/runtime-main.f8939cd5.js",
+    "runtime-main.js.map": "/keyframegen-sandbox/static/js/runtime-main.f8939cd5.js.map",
+    "static/js/2.c222326b.chunk.js": "/keyframegen-sandbox/static/js/2.c222326b.chunk.js",
+    "static/js/2.c222326b.chunk.js.map": "/keyframegen-sandbox/static/js/2.c222326b.chunk.js.map",
+    "index.html": "/keyframegen-sandbox/index.html",
+    "precache-manifest.031c801c090104562cd95b26a292b79d.js": "/keyframegen-sandbox/precache-manifest.031c801c090104562cd95b26a292b79d.js",
+    "service-worker.js": "/keyframegen-sandbox/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/keyframegen-sandbox/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.c222326b.chunk.js.LICENSE.txt": "/keyframegen-sandbox/static/js/2.c222326b.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/keyframegen-sandbox/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f8939cd5.js",
+    "static/js/2.c222326b.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.f87283a5.chunk.js"
+  ]
+}
