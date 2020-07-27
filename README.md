@@ -1,6 +1,8 @@
 # keyframegen-sandbox
 Interactive demo of [keyframegen](https://github.com/CFT-Chris/keyframegen).
 
+Published to [GitHub page](https://cft-chris.github.io/keyframegen-sandbox/).
+
 ## Available Scripts
 
 In the project directory, you can run:
