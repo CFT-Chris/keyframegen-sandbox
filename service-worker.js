@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/keyframegen-sandbox/precache-manifest.f3d38e3de37fe0a1e4b81db5826ec99b.js"
+  "/keyframegen-sandbox/precache-manifest.8b8201cd0c683f3f094c379b224174b0.js"
 );
 
 self.addEventListener('message', (event) => {
