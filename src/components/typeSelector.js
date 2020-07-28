@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
 import { setType } from '../redux/actions';
 import { KEYFRAMES_TYPES } from '../constants';
-import './typeSlides.css';
 
 const TypeSelector = ({ setType, activeType }) => (
   <IonSegment onIonChange={e => setType(e.target.value)} value={activeType}>

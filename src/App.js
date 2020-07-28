@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import '@ionic/react/css/core.css';
+import Previewer from './components/previewer';
 import TypeSelector from './components/typeSelector';
 import TypeSlides from './components/typeSlides';
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <Previewer />
         <TypeSelector />
         <TypeSlides />
       </header>

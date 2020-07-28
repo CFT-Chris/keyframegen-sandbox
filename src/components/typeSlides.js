@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IonSlides, IonSlide, IonChip, IonLabel, IonIcon } from '@ionic/react';
+import { IonSlides, IonSlide, IonChip, IonLabel, IonIcon, IonList } from '@ionic/react';
 import { alertCircle } from 'ionicons/icons';
 import { KEYFRAMES_TYPES } from '../constants';
+import SimpleSelector from './simpleSelector';
+import AnimationControls from './animationControls';
+import './typeSlides.css';
 
 const oSlideOptions = {
   zoom: {
@@ -31,10 +34,17 @@ class TypeSlides extends React.Component {
     <IonSlides ref={this.ionSlides} options={oSlideOptions} onIonSlidesDidLoad={this.onSlidesDidLoad.bind(this)}>
       {Object.keys(KEYFRAMES_TYPES).map(keyframeType => (
         <IonSlide value={keyframeType} key={`slide-keyframes-type-${keyframeType}`}>
-          <IonChip color="warning">
-            <IonIcon icon={alertCircle}></IonIcon>
-            <IonLabel>{`Not yet implemented: ${KEYFRAMES_TYPES[keyframeType]} Selector`}</IonLabel>
-          </IonChip>
+          {
+            keyframeType === 'SIMPLE'
+            ? (<IonList>
+                <AnimationControls />
+                <SimpleSelector />
+              </IonList>)
+            : (<IonChip color="warning">
+                <IonIcon icon={alertCircle}></IonIcon>
+                <IonLabel>{`Not yet implemented: ${KEYFRAMES_TYPES[keyframeType]} Selector`}</IonLabel>
+              </IonChip>)
+          }
         </IonSlide>
       ))}
     </IonSlides>

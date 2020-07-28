@@ -1,0 +1,16 @@
+.logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.previewerContainer {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+}
+
+.previewerContainer > ion-fab {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
