@@ -6,21 +6,23 @@ import { reload } from 'ionicons/icons';
 
 const AnimationControls = ({ setOptions, replayAnimation, activeType, simpleDuration, loop }) => (
   <>
-    <IonItem lines="none">
-      <IonLabel>Duration</IonLabel>
-      <IonInput 
-        slot="end"
-        type="number" 
-        min="0" 
-        max="10000"
-        debounce="100"
-        step="10"
-        onIonChange={e => setOptions({ duration: parseInt(e.target.value) })}
-        value={activeType === 'COMPLEX' ? 0 : simpleDuration}
-        readonly={activeType === 'COMPLEX'}
-        style={{ textAlign: 'right' }}
-      />
-    </IonItem>
+    {activeType === 'SIMPLE'
+      ? (<IonItem lines="none">
+          <IonLabel>Duration (ms)</IonLabel>
+          <IonInput 
+            slot="end"
+            type="number" 
+            min="0" 
+            max="10000"
+            debounce="100"
+            step="10"
+            onIonChange={e => setOptions({ duration: parseInt(e.target.value) })}
+            value={simpleDuration}
+            style={{ textAlign: 'right' }}
+          />
+        </IonItem>)
+      : null
+    }
     <IonItem lines="none">
       <IonLabel>Loop</IonLabel>
       <IonButton 

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { IonSlides, IonSlide, IonChip, IonLabel, IonIcon, IonList } from '@ionic/react';
 import { alertCircle } from 'ionicons/icons';
 import { KEYFRAMES_TYPES } from '../constants';
 import SimpleSelector from './simpleSelector';
 import AnimationControls from './animationControls';
+import ComplexConstructor from './complexConstructor';
 import './typeSlides.css';
 
 const oSlideOptions = {
@@ -14,31 +15,35 @@ const oSlideOptions = {
   centeredSlides: true
 };
 
-class TypeSlides extends React.Component {
-  constructor(props) {
-    super(props);
-    this.ionSlides = React.createRef();
-  }
+const TypeSlides = ({ activeType }) => {
+  const refSlides = useRef();
+  const onSlidesDidLoad = () => {
+    refSlides.current.lockSwipes(true);
+  };
 
-  async componentDidUpdate() {
-    await this.ionSlides.current.lockSwipes(false);
-    await this.ionSlides.current.slideTo(Object.keys(KEYFRAMES_TYPES).indexOf(this.props.activeType));
-    await this.ionSlides.current.lockSwipes(true);
-  }
+  useEffect(() => {
+    const slideTo = async () => {
+      await refSlides.current.lockSwipes(false);
+      await refSlides.current.slideTo(Object.keys(KEYFRAMES_TYPES).indexOf(activeType));
+      await refSlides.current.lockSwipes(true);
+    };
+    slideTo();
+  }, [activeType]);
 
-  onSlidesDidLoad() {
-    this.ionSlides.current.lockSwipes(true);
-  }
-
-  render = () => (
-    <IonSlides ref={this.ionSlides} options={oSlideOptions} onIonSlidesDidLoad={this.onSlidesDidLoad.bind(this)}>
+  return(
+    <IonSlides ref={refSlides} options={oSlideOptions} onIonSlidesDidLoad={() => onSlidesDidLoad()}>
       {Object.keys(KEYFRAMES_TYPES).map(keyframeType => (
         <IonSlide value={keyframeType} key={`slide-keyframes-type-${keyframeType}`}>
           {
-            keyframeType === 'SIMPLE'
+              keyframeType === 'SIMPLE'
             ? (<IonList>
                 <AnimationControls />
                 <SimpleSelector />
+              </IonList>)
+            : keyframeType === 'COMPLEX'
+            ? (<IonList>
+                <AnimationControls />
+                <ComplexConstructor />
               </IonList>)
             : (<IonChip color="warning">
                 <IonIcon icon={alertCircle}></IonIcon>
@@ -49,7 +54,7 @@ class TypeSlides extends React.Component {
       ))}
     </IonSlides>
   );
-} 
+}
 
 const mapStateToProps = state => ({
   activeType: state.keyframesType

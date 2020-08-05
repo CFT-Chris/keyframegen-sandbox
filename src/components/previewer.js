@@ -2,24 +2,42 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import logo from '../logo.svg';
 import './previewer.css';
-import { Simple } from 'keyframegen';
+import { Simple, Complex } from 'keyframegen';
 import { IonFab, IonFabButton, IonIcon, IonFabList, IonToast } from '@ionic/react';
 import { copy, logoCss3, logoJavascript, codeWorking } from 'ionicons/icons';
 
-const Previewer = ({ activeType, simpleDuration, activeName, loop, replays }) => {
+const Previewer = ({ activeType, simpleDuration, activeName, loop, replays, complexSerialization, complexTransforms }) => {
   const [simpleKeyframes, setSimpleKeyframes] = useState(null);
+  const [complexKeyframes, setComplexKeyframes] = useState(null);
   const [typeLastApplied, setTypeLastApplied] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [showError, setShowError] = useState(false);
   const imageRef = useRef();
   const copyToClipboard = data => {
-    if ('clipboard' in navigator && typeLastApplied === 'SIMPLE' && simpleKeyframes) {
+    if ('clipboard' in navigator) {
+      const keyframes = typeLastApplied === 'SIMPLE'
+        ? simpleKeyframes
+        : complexKeyframes;
+      let complexComponents;
+
+      if (typeLastApplied === 'COMPLEX') {
+        complexComponents = complexTransforms.map(transform => 
+          `  .${transform.type}(` 
+          + (Object.keys(transform).length > 1 
+            ? JSON.stringify(transform, (k, v) => k !== 'type' ? v : undefined)
+            : '')
+          + ')'
+        ).join('\n');
+      }
+
       navigator.clipboard.writeText(
           data === 'css'
-        ? simpleKeyframes.get('css')
-        : data === 'js'
+        ? keyframes.get('css')
+        : data === 'api'
+        ? JSON.stringify(keyframes.get('webapi'), null, 2)
+        : typeLastApplied === 'SIMPLE'
         ? `new Simple().set('${activeName}', { duration: ${simpleDuration} })`
-        : JSON.stringify(simpleKeyframes.get('webapi'), null, 2))
+        : `new Complex()\n${complexComponents}`)
       .then(
         () => setShowToast(true)
       )
@@ -36,6 +54,9 @@ const Previewer = ({ activeType, simpleDuration, activeName, loop, replays }) =>
       case 'SIMPLE':
         simpleKeyframes.abort();
         break;
+      case 'COMPLEX':
+        complexKeyframes.abort();
+        break;
       default:
         break;
     }
@@ -45,12 +66,21 @@ const Previewer = ({ activeType, simpleDuration, activeName, loop, replays }) =>
         .set(activeName, { duration: simpleDuration })
         .applyTo(imageRef.current, { loop });
     }
+    else if (activeType === 'COMPLEX') {
+      complexKeyframes
+        .clear()
+        .deserialize(complexSerialization)
+        .applyTo(imageRef.current, { loop });
+    }
 
     setTypeLastApplied(activeType);  
-  }, [ simpleKeyframes, typeLastApplied, activeType, simpleDuration, activeName, loop, replays ]);
+  }, [ simpleKeyframes, complexKeyframes, typeLastApplied, activeType, simpleDuration, activeName, loop, replays, complexSerialization ]);
 
   if (!simpleKeyframes)
     setSimpleKeyframes(new Simple());
+
+  if (!complexKeyframes)
+    setComplexKeyframes(new Complex());
 
   return(
     <div className="previewerContainer">
@@ -92,7 +122,9 @@ const mapStateToProps = state => ({
     ? state.simpleName
     : null,
   loop: state.sharedOptions.loop,
-  replays: state.sharedOptions.replays
+  replays: state.sharedOptions.replays,
+  complexSerialization: state.complexTransforms.serialization,
+  complexTransforms: state.complexTransforms.data,
 });
 
 export default connect(mapStateToProps)(Previewer);

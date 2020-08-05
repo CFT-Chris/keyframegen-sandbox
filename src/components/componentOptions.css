@@ -1,0 +1,72 @@
+.controlsArrow {
+  display: inline-block;
+  margin-right: 1em;
+  transition: transform 250ms ease-in-out;
+}
+
+.controlsHeader {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.controlsBody {
+  transition: max-height 250ms ease-in-out;
+  max-height: 0px;
+  overflow-y: hidden;
+}
+
+.controlsBody .smallLabel {
+  font-size: 0.8em;
+}
+
+.controlsBody ion-item {
+  --min-height: 0;
+  line-height: 1;
+}
+
+.controlsBody ion-checkbox {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.controlsBody ion-select {
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  text-align: right; 
+  max-width: 100%; 
+  width: 100%;
+}
+
+.controlsBody ion-input {
+  text-align: right; 
+}
+
+.componentType {
+  font-weight: bold;
+}
+
+.controlsExpanded .controlsHeader > .controlsArrow {
+  transform: rotate(90deg);
+}
+
+.controlsExpanded .controlsBody {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.componentSerialization {
+  margin-left: 0.5em;
+  font-size: 0.7em;
+}
+
+.propertyText {
+  width: 10%;
+  min-width: 32px;
+}
+
+.item-input.sc-ion-label-md-h, 
+.item-input .sc-ion-label-md-h {
+  max-width: inherit;
+  pointer-events: inherit;
+}
